@@ -1,0 +1,8 @@
+body,
+html {
+  height: 100%;
+}
+
+.message-date {
+  font-size: 13px;
+}

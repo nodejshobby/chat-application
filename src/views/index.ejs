@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+<div class="contaner" style="margin-top: 6.5rem">
+  <div class="row text-center">
+    <h2 class="mb-4">Select room to Join</h2>
+    <div class="col-8 col-sm-6 col-md-4 mx-auto" \>
+      <form action="/chat" method="get">
+        <select
+          class="form-select mb-3"
+          aria-label="Default select example"
+          name="roomID"
+        >
+          <option value="1">Gaming</option>
+          <option value="2">Enterpreneurship</option>
+          <option value="3">Technology</option>
+        </select>
+        <button class="btn btn-success">Join Room</button>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include('partials/footer') %>

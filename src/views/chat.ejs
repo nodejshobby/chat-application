@@ -1,0 +1,59 @@
+<%- include('partials/header') %>
+
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div
+      class="col-sm-4 col-md-3 bg-light p-4 ms-md-3"
+      style="border-radius: 1rem"
+    >
+      <div class="mb-4">
+        <h4 class="bg-light">Room Name</h4>
+        <p>Entrepreneurship</p>
+      </div>
+      <div class="mb-4">
+        <h4 class="bg-light">Online Users</h4>
+        <ul id="user-list">
+          <li data-id="Nathaniel">Nathaniel</li>
+          <li data-id="Math">Math</li>
+          <li data-id="Neo">Neo</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-8 col-md-8 mx-md-auto mt-3 mt-md-0">
+      <div
+        id="message-box"
+        class="p-3"
+        style="
+          height: 80vh;
+          border: 1px solid green;
+          border-radius: 1rem;
+          overflow: auto;
+        "
+      >
+        <div class="bg-light p-2 mb-3" style="border-radius: 1rem">
+          <p class="mb-1">
+            <span class="fw-bold">Nathaniel</span> -
+            <span class="message-date">21st January 2022 5:00PM</span>
+          </p>
+          <p class="mb-1">Hey, how are you doing?</p>
+        </div>
+      </div>
+      <div class="col-md-12 mt-3 mb-4">
+        <div class="bg-light">
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="text"
+              name="message"
+              placeholder="Enter your message here"
+            />
+            <button class="btn btn-success">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/socketMain.js"></script>
+  <%- include('partials/footer') %>
+</div>
