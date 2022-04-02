@@ -35,9 +35,8 @@ createUser = async (req, res) => {
       .status(201)
       .json({ status: "Ok", message: "Registration was successful" });
   } catch (error) {
-    return res.status(422).json({
-      message: error.message,
-    });
+    res.status(500).json({ message: "An error occured" });
+    console.log(error.message);
   }
 };
 
