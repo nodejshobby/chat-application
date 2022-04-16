@@ -5,6 +5,10 @@ const http = require("http");
 const socketio = require("socket.io");
 const morgan = require("morgan");
 const cors = require("cors");
+const flash = require("connect-flash");
+const localizeFlash = require("./utils/localizeFlash");
+const sessionConfig = require("./config/sessionConfig");
+const passport = require("passport");
 
 const app = express();
 const server = http.createServer(app);
@@ -18,6 +22,11 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(morgan("tiny"));
 app.use(cors());
+app.use(sessionConfig);
+app.use(flash());
+app.use(localizeFlash);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

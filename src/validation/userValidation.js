@@ -41,6 +41,34 @@ const registrationForm = [
     }),
 ];
 
+const resetForm = [
+  body("oldPassword")
+    .notEmpty()
+    .bail()
+    .withMessage("Enter your old password")
+    .isLength({
+      min: 6,
+    })
+    .withMessage("Your old password should be more than 6 characters"),
+
+  body("newPassword")
+    .notEmpty()
+    .bail()
+    .withMessage("Enter a new valid password")
+    .isLength({
+      min: 6,
+    })
+    .bail()
+    .withMessage("Your new password should be more than 6 characters")
+    .custom((value, { req }) => {
+      if (value !== req.body.confirmPassword) {
+        throw new Error("New passwords do match");
+      } else {
+        return true;
+      }
+    }),
+];
 module.exports = {
   registrationForm,
+  resetForm,
 };

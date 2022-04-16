@@ -1,8 +1,8 @@
-getIndexPage = (req, res) => {
+const getIndexPage = (req, res) => {
   res.render("index");
 };
 
-getChatPage = (req, res) => {
+const getChatPage = (req, res) => {
   res.render("chat", {
     chatRoom: 1,
   });

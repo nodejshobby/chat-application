@@ -4,13 +4,21 @@
   <div class="row text-center">
     <h2 class="mb-4">Register to Chatter</h2>
     <div class="col-md-6 mx-auto">
+      <% if (errors.length > 0) { %>
+      <div class="alert alert-danger">
+        <% errors.forEach((error)=> { %>
+        <p class="p-0 m-0 mb-1"><%= error.msg %></p>
+        <% }) %>
+      </div>
+      <% } %> <% if (error_message !='') { %>
+      <div class="alert alert-danger"><%= error_message %></div>
+      <% } %>
       <form action="/user/register" method="post">
         <div class="form-group mb-3">
           <input
             class="form-control"
             type="text"
             name="username"
-            id="username"
             placeholder="Enter your username"
           />
         </div>
@@ -19,20 +27,16 @@
             class="form-control"
             type="password"
             name="password"
-            id="password"
             placeholder="Enter your password"
           />
-          <em id="password-error"></em>
         </div>
         <div class="form-group mb-3">
           <input
             class="form-control"
             type="password"
             name="confirmPassword"
-            id="password"
             placeholder="Re-enter your password"
           />
-          <em id="password-confirm-error"></em>
         </div>
         <button type="submit" class="btn btn-success">Register</button>
       </form>
