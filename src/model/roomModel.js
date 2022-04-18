@@ -7,6 +7,7 @@ const userSchema = new Schema(
     name: {
       type: String,
       required: true,
+      unique: true,
     },
   },
   {
@@ -14,6 +15,6 @@ const userSchema = new Schema(
   }
 );
 
-const userModel = mongoose.model("Room", userSchema);
+const roomModel = mongoose.model("Room", userSchema);
 
-module.exports = userModel;
+module.exports = roomModel;

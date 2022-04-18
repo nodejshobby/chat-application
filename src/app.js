@@ -9,6 +9,15 @@ const flash = require("connect-flash");
 const localizeFlash = require("./utils/localizeFlash");
 const sessionConfig = require("./config/sessionConfig");
 const passport = require("passport");
+const Message = require("./utils/Messages");
+const Chat = require("./model/chatModel");
+
+const {
+  userJoinRoom,
+  getCurrentRoomUser,
+  getAllRoomUsers,
+  userLeaveRoom,
+} = require("./utils/activeRoomUser");
 
 const app = express();
 const server = http.createServer(app);
@@ -34,10 +43,64 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 io.on("connection", (socket) => {
-  console.log("New Socket Connection");
+  //Catch the event join room
+  socket.on("joinRoom", ({ user, roomID }) => {
+    const inRoomUser = userJoinRoom(socket.id, user, roomID);
+    socket.join(inRoomUser.roomID);
 
+    // Send a welcome message to user
+    socket.emit(
+      "chat",
+      Message.formatMessage(
+        process.env.chatAppName,
+        "Welcome to chatter web application"
+      )
+    );
+
+    //Send the notification that a user just join
+    socket.broadcast
+      .to(inRoomUser.roomID)
+      .emit(
+        "chat",
+        Message.formatMessage(
+          process.env.chatAppName,
+          `${user} just join the chat`
+        )
+      );
+    // Send room users in room
+    io.to(roomID).emit("roomUsers", getAllRoomUsers(roomID));
+  });
+
+  //Send a message when a user just leave the chat
   socket.on("disconnect", () => {
-    console.log("A user has disconnected");
+    const user = userLeaveRoom(socket.id);
+    if (user) {
+      io.to(user.roomID).emit(
+        "chat",
+        Message.formatMessage(
+          process.env.chatAppName,
+          `${user.username} just left the chat`
+        )
+      );
+
+      io.to(user.roomID).emit("roomUsers", getAllRoomUsers(user.roomID));
+    }
+  });
+
+  //Listen when a user send message
+  socket.on("sendMessage", (msg) => {
+    const user = getCurrentRoomUser(socket.id);
+    const wrapMessage = Message.formatMessage(user.username, msg);
+    io.to(user.roomID).emit("chat", wrapMessage);
+
+    Chat({
+      roomId: user.roomID,
+      username: user.username,
+      message: msg,
+      time: wrapMessage.time,
+    }).save((err, result) => {
+      if (err) return err;
+    });
   });
 });
 

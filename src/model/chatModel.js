@@ -8,7 +8,15 @@ const chatSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
     },
+    username: {
+      type: String,
+      required: true,
+    },
     message: {
+      type: String,
+      required: true,
+    },
+    time: {
       type: String,
       required: true,
     },
@@ -18,6 +26,6 @@ const chatSchema = new Schema(
   }
 );
 
-const chatModel = mongoose.model("Message", userSchema);
+const chatModel = mongoose.model("Message", chatSchema);
 
 module.exports = chatModel;

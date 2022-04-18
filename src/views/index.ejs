@@ -4,14 +4,18 @@
     <h2 class="mb-4">Select room to Join</h2>
     <div class="col-8 col-sm-6 col-md-4 mx-auto" \>
       <form action="/chat" method="get">
+        <% if (error_message != '') { %>
+        <div class="alert alert-danger"><%= error_message %></div>
+        <% } %>
+        <input type="hidden" name="user" value="<%= userName %>" />
         <select
           class="form-select mb-3"
           aria-label="Default select example"
           name="roomID"
         >
-          <option value="1">Gaming</option>
-          <option value="2">Enterpreneurship</option>
-          <option value="3">Technology</option>
+          <% rooms.forEach((room)=>{ %>
+          <option value="<%= room._id %>"><%= room.name %></option>
+          <% }) %>
         </select>
         <button class="btn btn-success">Join Room</button>
       </form>

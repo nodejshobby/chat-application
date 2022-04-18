@@ -6,14 +6,23 @@ const passportAuth = require("../config/passportAuthConfig");
 const userValidation = require("../validation/userValidation");
 
 const userController = require("../controllers/userController");
+const authMiddleware = require("../middlewares/Auth");
 
 passport.use("userAuth", passportAuth);
 
-router.get("/login", userController.getLoginPage);
+router.get(
+  "/login",
+  authMiddleware.redirectIfAuthenticated,
+  userController.getLoginPage
+);
 
 router.get("/register", userController.getRegisterPage);
 
-router.get("/reset", userController.getResetPage);
+router.get(
+  "/reset",
+  authMiddleware.isAuthenticated,
+  userController.getResetPage
+);
 
 router.post(
   "/register",
@@ -31,7 +40,7 @@ router.post(
   })
 );
 
-router.get("/logout", (req, res) => {
+router.get("/logout", authMiddleware.isAuthenticated, (req, res) => {
   req.logout();
   req.flash("success_message", "You have sucessfully logout");
   return res.redirect("/user/login");
