@@ -9,6 +9,7 @@ const flash = require("connect-flash");
 const localizeFlash = require("./utils/localizeFlash");
 const sessionConfig = require("./config/sessionConfig");
 const passport = require("passport");
+const passportAuth = require("./config/passportAuthConfig");
 const Message = require("./utils/Messages");
 const Chat = require("./model/chatModel");
 
@@ -33,9 +34,11 @@ app.use(morgan("tiny"));
 app.use(cors());
 app.use(sessionConfig);
 app.use(flash());
-app.use(localizeFlash);
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(localizeFlash);
+
+passport.use("userAuth", passportAuth);
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -43,7 +46,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 io.on("connection", (socket) => {
-  //Catch the event join room
+  // Catch the event join room
   socket.on("joinRoom", ({ user, roomID }) => {
     const inRoomUser = userJoinRoom(socket.id, user, roomID);
     socket.join(inRoomUser.roomID);

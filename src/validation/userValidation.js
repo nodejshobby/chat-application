@@ -68,6 +68,7 @@ const resetForm = [
       }
     }),
 ];
+
 module.exports = {
   registrationForm,
   resetForm,

@@ -1,14 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-const passportAuth = require("../config/passportAuthConfig");
 
 const userValidation = require("../validation/userValidation");
 
 const userController = require("../controllers/userController");
 const authMiddleware = require("../middlewares/Auth");
-
-passport.use("userAuth", passportAuth);
 
 router.get(
   "/login",

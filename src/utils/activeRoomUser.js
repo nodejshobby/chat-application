@@ -2,6 +2,11 @@ const roomUser = [];
 
 const userJoinRoom = (socketID, username, roomID) => {
   const ActiveUser = { socketID, username, roomID };
+  const userAlreadyExists = roomUser.find((user) => user.username === username);
+
+  if (userAlreadyExists) {
+    return ActiveUser;
+  }
 
   roomUser.push(ActiveUser);
   return ActiveUser;

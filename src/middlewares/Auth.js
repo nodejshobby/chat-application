@@ -1,10 +1,10 @@
 const isAuthenticated = (req, res, next) => {
-  if (!req.user) return res.redirect("/user/login");
+  if (req.isUnauthenticated()) return res.redirect("/user/login");
   next();
 };
 
 const redirectIfAuthenticated = (req, res, next) => {
-  if (req.user) return res.redirect("/");
+  if (req.isAuthenticated()) return res.redirect("/");
   next();
 };
 

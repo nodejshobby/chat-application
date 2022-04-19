@@ -16,7 +16,7 @@ const insertRoom = () => {
     Room(room)
       .save()
       .then((data) => {
-        console.log(`${data} was sucesfully inserted`);
+        console.log(`${data.name} was sucesfully inserted`);
       })
       .catch((error) => {
         console.log(error.message);

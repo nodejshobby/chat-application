@@ -30,11 +30,10 @@ chatForm.addEventListener("submit", function (event) {
 
 function outputMessage(message) {
   var div = document.createElement("div");
-  div.classList.add("bg-light");
-  div.classList.add("p-2");
-  div.classList.add("mb-3");
+  div.classList.add("bg-light", "p-2", "mb-3");
 
   div.style = "border-radius: 1rem";
+  
   div.innerHTML = `<p class="mb-1">
   <span class="fw-bold">${message.userName}</span> -
   <span class="message-date">${message.time}</span>
@@ -44,7 +43,11 @@ function outputMessage(message) {
   messageBox.appendChild(div);
 }
 
-function outputUsers(users) {
+function outputUsers(users, userNow = user) {
   userList.innerHTML = `
-  ${users.map((user) => `<li> ${user.username}</li>`).join("")}`;
+  ${users
+    .map(
+      (user) => `<li> ${user.username === userNow ? "You" : user.username}</li>`
+    )
+    .join("")}`;
 }
