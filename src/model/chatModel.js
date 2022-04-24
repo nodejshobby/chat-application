@@ -7,6 +7,7 @@ const chatSchema = new Schema(
     roomId: {
       type: Schema.Types.ObjectId,
       required: true,
+      ref: "Room",
     },
     username: {
       type: String,

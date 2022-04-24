@@ -33,9 +33,11 @@ function outputMessage(message) {
   div.classList.add("bg-light", "p-2", "mb-3");
 
   div.style = "border-radius: 1rem";
-  
+
   div.innerHTML = `<p class="mb-1">
-  <span class="fw-bold">${message.userName}</span> -
+  <span class="fw-bold">${
+    message.userName === user ? "You" : message.userName
+  }</span> -
   <span class="message-date">${message.time}</span>
 </p>
 <p class="mb-1">${message.message}</p>

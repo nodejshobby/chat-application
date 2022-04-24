@@ -29,7 +29,11 @@
         <% chats.forEach((chat)=>{ %>
         <div class="bg-light p-2 mb-3" style="border-radius: 1rem">
           <p class="mb-1">
-            <span class="fw-bold"><%= chat.username %></span> -
+            <span class="fw-bold"
+              ><% if(chat.username === userName){ %> <%= "You" %> <% }else{ %>
+              <%= chat.username %> <% } %>
+            </span>
+            -
             <span class="message-date"><%= chat.time %></span>
           </p>
           <p class="mb-1"><%= chat.message %></p>

@@ -30,7 +30,7 @@ const getChatPage = async (req, res) => {
       req.flash("error_message", "Invalid Request!");
       return res.redirect("/");
     }
-    res.render("chat", { roomName: room.name, chats });
+    res.render("chat", { userName, roomName: room.name, chats });
   } catch (error) {
     console.log(error.message);
   }
