@@ -18,7 +18,7 @@ SESSION_COLLECTION_NAME=chatSessions <br/>
 ## To run this app locally run
 
 ```
-npm run start
+npm install
 npm run start
 ```
 
